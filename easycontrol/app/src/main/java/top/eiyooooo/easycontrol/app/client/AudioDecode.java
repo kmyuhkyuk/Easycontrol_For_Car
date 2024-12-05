@@ -49,14 +49,14 @@ public class AudioDecode {
     // 创建AudioTrack
     setAudioTrack();
     // 创建音频放大器
-    setLoudnessEnhancer();
+    //setLoudnessEnhancer();
   }
 
   public void release() {
     try {
       audioTrack.stop();
       audioTrack.release();
-      loudnessEnhancer.release();
+      //loudnessEnhancer.release();
       decodec.stop();
       decodec.release();
     } catch (Exception ignored) {
