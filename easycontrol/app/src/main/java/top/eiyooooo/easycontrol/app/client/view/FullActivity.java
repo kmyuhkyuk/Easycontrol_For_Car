@@ -1,5 +1,6 @@
 package top.eiyooooo.easycontrol.app.client.view;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.hardware.Sensor;
@@ -11,9 +12,15 @@ import android.text.InputType;
 import android.util.DisplayMetrics;
 import android.util.Pair;
 import android.view.Display;
+import android.view.GestureDetector;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 import top.eiyooooo.easycontrol.app.helper.PublicTools;
 import top.eiyooooo.easycontrol.app.R;
@@ -43,6 +50,7 @@ public class FullActivity extends Activity implements SensorEventListener {
     clientView.setFullView(this);
     // 监听
     setButtonListener();
+    setMoreListener();
     setKeyEvent();
     fullActivity.textureViewLayout.addOnLayoutChangeListener((view, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom)->{
       if (left == oldLeft && top == oldTop && right == oldRight && bottom == oldBottom) return;
@@ -116,10 +124,6 @@ public class FullActivity extends Activity implements SensorEventListener {
     fullActivity.buttonBack.setOnClickListener(v -> clientView.controlPacket.sendKeyEvent(4, 0, -1));
     fullActivity.buttonHome.setOnClickListener(v -> clientView.controlPacket.sendKeyEvent(3, 0, -1));
     fullActivity.buttonSwitch.setOnClickListener(v -> clientView.controlPacket.sendKeyEvent(187, 0, -1));
-    fullActivity.buttonMore.setOnClickListener(v -> {
-      changeBarView();
-      barViewTimer();
-    });
     fullActivity.buttonNavBar.setOnClickListener(v -> {
       setNavBarHide(fullActivity.navBar.getVisibility() == View.GONE);
       barViewTimer();
@@ -170,6 +174,55 @@ public class FullActivity extends Activity implements SensorEventListener {
       fullActivity.buttonLock.setOnClickListener(v -> {
         lockOrientation = !lockOrientation;
         fullActivity.buttonLock.setImageResource(lockOrientation ? R.drawable.unlock : R.drawable.lock);
+        barViewTimer();
+      });
+    }
+  }
+
+  //设置展开导航栏监听控制
+  @SuppressLint("ClickableViewAccessibility")
+  private void setMoreListener(){
+    if (AppData.setting.getCanDragButtonMore()) {
+      AtomicInteger xx = new AtomicInteger();
+      AtomicInteger yy = new AtomicInteger();
+
+      GestureDetector gestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
+        @Override
+        public boolean onSingleTapUp(@NonNull MotionEvent motionEvent) {
+          changeBarView();
+          barViewTimer();
+
+          return true;
+        }
+      });
+
+      fullActivity.buttonMore.setOnTouchListener((view, motionEvent) -> {
+        gestureDetector.onTouchEvent(motionEvent);
+
+        switch (motionEvent.getActionMasked()){
+          case MotionEvent.ACTION_DOWN:
+            xx.set((int)motionEvent.getX());
+            yy.set((int)motionEvent.getY());
+            break;
+          case MotionEvent.ACTION_MOVE:
+            float moveX;
+            float moveY;
+            moveX = motionEvent.getX();
+            moveY = motionEvent.getY();
+
+            float distanceX = moveX - xx.get();
+            float distanceY = moveY - yy.get();
+            view.setX(view.getX() + distanceX);
+            view.setY(view.getY() + distanceY);
+            break;
+        }
+
+        return true;
+      });
+    }
+    else {
+      fullActivity.buttonMore.setOnClickListener(v -> {
+        changeBarView();
         barViewTimer();
       });
     }

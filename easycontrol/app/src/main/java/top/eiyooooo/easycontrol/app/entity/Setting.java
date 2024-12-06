@@ -332,6 +332,15 @@ public final class Setting {
     editor.apply();
   }
 
+  public boolean getCanDragButtonMore() {
+    return sharedPreferences.getBoolean("canDragButtonMore", true);
+  }
+
+  public void setCanDragButtonMore(boolean value) {
+    editor.putBoolean("canDragButtonMore", value);
+    editor.apply();
+  }
+
   public Setting(SharedPreferences sharedPreferences) {
     this.sharedPreferences = sharedPreferences;
     this.editor = sharedPreferences.edit();
