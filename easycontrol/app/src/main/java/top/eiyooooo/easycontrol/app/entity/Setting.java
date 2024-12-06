@@ -323,6 +323,15 @@ public final class Setting {
     editor.apply();
   }
 
+  public String getDefaultOrientation() {
+    return sharedPreferences.getString("defaultOrientation", "Not set");
+  }
+
+  public void setDefaultOrientation(String value) {
+    editor.putString("defaultOrientation", value);
+    editor.apply();
+  }
+
   public boolean getDefaultLockOrientation() {
     return sharedPreferences.getBoolean("defaultLockOrientation", false);
   }

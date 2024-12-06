@@ -17,6 +17,8 @@ public class SetActivity extends Activity {
   private static final ArrayAdapter<String> audioChannelAdapter = new ArrayAdapter<>(AppData.main, R.layout.item_spinner_item, new String[]{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"});
   private static final ArrayAdapter<String> reconnectTimeAdapter = new ArrayAdapter<>(AppData.main, R.layout.item_spinner_item, new String[]{AppData.main.getString(R.string.set_no_auto_countdown), "3", "5", "10"});
 
+  private static final ArrayAdapter<String> orientationAdapter = new ArrayAdapter<>(AppData.main, R.layout.item_spinner_item, new String[]{"Not set", "Portrait", "Landscape", "Reverse Landscape", "Reverse Portrait"});
+
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -94,6 +96,7 @@ public class SetActivity extends Activity {
     setActivity.setDisplay.addView(PublicTools.createSwitchCard(this, getString(R.string.set_display_full_fill), getString(R.string.set_display_full_fill_detail), AppData.setting.getFillFull(), isChecked -> AppData.setting.setFillFull(isChecked)).getRoot());
     setActivity.setDisplay.addView(PublicTools.createSwitchCard(this, getString(R.string.set_display_default_show_nav_bar), getString(R.string.set_display_default_show_nav_bar_detail), AppData.setting.getDefaultShowNavBar(), isChecked -> AppData.setting.setDefaultShowNavBar(isChecked)).getRoot());
 
+    setActivity.setDisplay.addView(PublicTools.createSpinnerCard(this, getString(R.string.set_display_default_orientation), getString(R.string.set_display_default_orientation_detail), AppData.setting.getDefaultOrientation(), orientationAdapter, str -> AppData.setting.setDefaultOrientation(str)).getRoot());
     setActivity.setDisplay.addView(PublicTools.createSwitchCard(this, getString(R.string.set_display_default_lock_orientation), getString(R.string.set_display_default_lock_orientation_detail), AppData.setting.getDefaultLockOrientation(), isChecked -> AppData.setting.setDefaultLockOrientation(isChecked)).getRoot());
     setActivity.setDisplay.addView(PublicTools.createSwitchCard(this, getString(R.string.set_display_can_drag_button_more), getString(R.string.set_display_can_drag_button_more_detail), AppData.setting.getCanDragButtonMore(), isChecked -> AppData.setting.setCanDragButtonMore(isChecked)).getRoot());
     setActivity.setDisplay.addView(PublicTools.createSwitchCard(this, getString(R.string.set_display_not_full_to_mini_on_exit), getString(R.string.set_display_not_full_to_mini_on_exit_detail), AppData.setting.getNotFullToMiniOnExit(), isChecked -> AppData.setting.setNotFullToMiniOnExit(isChecked)).getRoot());
