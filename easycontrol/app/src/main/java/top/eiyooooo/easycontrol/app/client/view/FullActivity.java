@@ -62,6 +62,15 @@ public class FullActivity extends Activity implements SensorEventListener {
     changeMode(-clientView.mode);
     // 页面自动旋转
     AppData.sensorManager.registerListener(this, AppData.sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+
+    if (nextOrientationData != null)
+    {
+      isFirstOrientationEvent = nextOrientationData.isFirstOrientationEvent;
+      lockOrientation = nextOrientationData.lockOrientation;
+      lastOrientation = nextOrientationData.lastOrientation;
+
+      nextOrientationData = null;
+    }
   }
 
   public Pair<Integer, Integer> fullMaxSize;
@@ -259,13 +268,56 @@ public class FullActivity extends Activity implements SensorEventListener {
     barViewTimerThread.start();
   }
 
-  private  boolean isFirstOrientationEvent = true;
+  public static class OrientationData {
+    public final boolean isFirstOrientationEvent;
+    public final boolean lockOrientation;
+    public final int lastOrientation;
+
+    public OrientationData(boolean isFirstOrientationEvent, boolean lockOrientation, int lastOrientation) {
+      this.isFirstOrientationEvent = isFirstOrientationEvent;
+      this.lockOrientation = lockOrientation;
+      this.lastOrientation = lastOrientation;
+    }
+  }
+
+  private static OrientationData nextOrientationData;
+
+  private boolean isFirstOrientationEvent = true;
   private boolean lockOrientation = false;
   private int lastOrientation = -1;
+
+  public int getDefaultOrientation() {
+    String defaultOrientationString = AppData.setting.getDefaultOrientation();
+
+    if (defaultOrientationString.equals("Portrait"))
+      return ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+
+    if (defaultOrientationString.equals("Landscape"))
+      return ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
+
+    if (defaultOrientationString.equals("Reverse Landscape"))
+      return ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE;
+
+    if (defaultOrientationString.equals("Reverse Portrait"))
+      return ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT;
+
+    return -1;
+  }
 
   @Override
   public void onSensorChanged(SensorEvent sensorEvent) {
     if (isFirstOrientationEvent) {
+      int defaultOrientation = getDefaultOrientation();
+
+      if (defaultOrientation != -1) {
+        lastOrientation = defaultOrientation;
+        setRequestedOrientation(defaultOrientation);
+        nextOrientationData = new OrientationData(isFirstOrientationEvent, lockOrientation, lastOrientation);
+        isFirstOrientationEvent = false;
+
+        return;
+      }
+
       isFirstOrientationEvent = false;
     }
     else {
@@ -285,6 +337,7 @@ public class FullActivity extends Activity implements SensorEventListener {
     if (lastOrientation != newOrientation) {
       lastOrientation = newOrientation;
       setRequestedOrientation(newOrientation);
+      nextOrientationData = new OrientationData(isFirstOrientationEvent, lockOrientation, lastOrientation);
     }
   }
 

@@ -91,6 +91,8 @@
   <string name="set_license">开源证书</string>
   <string name="set_about_version">版本: </string>
 
+  <string name="set_display_default_orientation">默认屏幕方向</string>
+  <string name="set_display_default_orientation_detail">全屏模式下默认屏幕方向</string>
   <string name="set_display_default_lock_orientation">默认屏幕旋转锁定</string>
   <string name="set_display_default_lock_orientation_detail">全屏模式下默认屏幕旋转锁定</string>
   <string name="set_display_can_drag_button_more">可拖动展开导航栏按钮</string>

@@ -91,6 +91,8 @@
   <string name="set_license">License</string>
   <string name="set_about_version">Version: </string>
 
+  <string name="set_display_default_orientation">Screen orientation by default</string>
+  <string name="set_display_default_orientation_detail">Screen orientation by default in full screen mode</string>
   <string name="set_display_default_lock_orientation">Lock screen orientation by default</string>
   <string name="set_display_default_lock_orientation_detail">Lock screen orientation by default in full screen mode</string>
   <string name="set_display_can_drag_button_more">Can drag expand navigation button</string>
