@@ -341,6 +341,15 @@ public final class Setting {
     editor.apply();
   }
 
+  public boolean getNotFullToMiniOnExit() {
+    return sharedPreferences.getBoolean("notFullToMiniOnExit", false);
+  }
+
+  public void setNotFullToMiniOnExit(boolean value) {
+    editor.putBoolean("notFullToMiniOnExit", value);
+    editor.apply();
+  }
+
   public Setting(SharedPreferences sharedPreferences) {
     this.sharedPreferences = sharedPreferences;
     this.editor = sharedPreferences.edit();

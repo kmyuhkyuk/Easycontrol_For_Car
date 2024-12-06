@@ -77,7 +77,7 @@ public class FullActivity extends Activity implements SensorEventListener {
   protected void onPause() {
     AppData.sensorManager.unregisterListener(this);
     if (isChangingConfigurations()) fullActivity.textureViewLayout.removeView(clientView.textureView);
-    else if (clientView != null) {
+    else if (!AppData.setting.getNotFullToMiniOnExit() && clientView != null) {
       if (AppData.setting.getFullToMiniOnExit()) clientView.changeToMini(2);
       else clientView.changeToSmall();
     }

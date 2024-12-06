@@ -95,6 +95,8 @@
   <string name="set_display_default_lock_orientation_detail">Lock screen orientation by default in full screen mode</string>
   <string name="set_display_can_drag_button_more">Can drag expand navigation button</string>
   <string name="set_display_can_drag_button_more_detail">Can be dragged expand navigation bar button in full screen mode</string>
+  <string name="set_display_not_full_to_mini_on_exit">Fullscreen will not auto minimize</string>
+  <string name="set_display_not_full_to_mini_on_exit_detail">When fullscreen not manually exits, will not auto minimize it</string>
 
   <!-- 查看IP地址页面 -->
   <string name="ip_title">Local Address</string>
