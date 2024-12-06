@@ -48,6 +48,18 @@ public class FullActivity extends Activity implements SensorEventListener {
     }
     clientView = client.clientView;
     clientView.setFullView(this);
+
+    if (nextOrientationData != null) {
+      isFirstOrientationEvent = nextOrientationData.isFirstOrientationEvent;
+      lockOrientation = nextOrientationData.lockOrientation;
+      lastOrientation = nextOrientationData.lastOrientation;
+
+      nextOrientationData = null;
+    }
+    else {
+      lockOrientation = AppData.setting.getDefaultLockOrientation();
+    }
+
     // 监听
     setButtonListener();
     setMoreListener();
@@ -62,15 +74,6 @@ public class FullActivity extends Activity implements SensorEventListener {
     changeMode(-clientView.mode);
     // 页面自动旋转
     AppData.sensorManager.registerListener(this, AppData.sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
-
-    if (nextOrientationData != null)
-    {
-      isFirstOrientationEvent = nextOrientationData.isFirstOrientationEvent;
-      lockOrientation = nextOrientationData.lockOrientation;
-      lastOrientation = nextOrientationData.lastOrientation;
-
-      nextOrientationData = null;
-    }
   }
 
   public Pair<Integer, Integer> fullMaxSize;
@@ -178,7 +181,6 @@ public class FullActivity extends Activity implements SensorEventListener {
       setRequestedOrientation(orientation);
       lastOrientation = orientation;
     } else {
-      lockOrientation = AppData.setting.getDefaultLockOrientation();
       fullActivity.buttonLock.setImageResource(lockOrientation ? R.drawable.unlock : R.drawable.lock);
       fullActivity.buttonLock.setOnClickListener(v -> {
         lockOrientation = !lockOrientation;
