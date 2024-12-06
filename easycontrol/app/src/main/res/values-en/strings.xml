@@ -91,6 +91,9 @@
   <string name="set_license">License</string>
   <string name="set_about_version">Version: </string>
 
+  <string name="set_display_default_lock_orientation">Default Lock Screen Orientation</string>
+  <string name="set_display_default_lock_orientation_detail">Lock Screen Orientation after connection</string>
+
   <!-- 查看IP地址页面 -->
   <string name="ip_title">Local Address</string>
   <string name="ip_ipv4">IPv4(Click to copy)</string>
