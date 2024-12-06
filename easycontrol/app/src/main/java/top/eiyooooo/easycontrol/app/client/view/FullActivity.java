@@ -165,6 +165,8 @@ public class FullActivity extends Activity implements SensorEventListener {
       setRequestedOrientation(orientation);
       lastOrientation = orientation;
     } else {
+      lockOrientation = AppData.setting.getDefaultLockOrientation();
+      fullActivity.buttonLock.setImageResource(lockOrientation ? R.drawable.unlock : R.drawable.lock);
       fullActivity.buttonLock.setOnClickListener(v -> {
         lockOrientation = !lockOrientation;
         fullActivity.buttonLock.setImageResource(lockOrientation ? R.drawable.unlock : R.drawable.lock);
@@ -204,12 +206,19 @@ public class FullActivity extends Activity implements SensorEventListener {
     barViewTimerThread.start();
   }
 
+  private  boolean isFirstOrientationEvent = true;
   private boolean lockOrientation = false;
   private int lastOrientation = -1;
 
   @Override
   public void onSensorChanged(SensorEvent sensorEvent) {
-    if (lockOrientation || Sensor.TYPE_ACCELEROMETER != sensorEvent.sensor.getType()) return;
+    if (isFirstOrientationEvent) {
+      isFirstOrientationEvent = false;
+    }
+    else {
+      if (lockOrientation || Sensor.TYPE_ACCELEROMETER != sensorEvent.sensor.getType()) return;
+    }
+
     float[] values = sensorEvent.values;
     float x = values[0];
     float y = values[1];

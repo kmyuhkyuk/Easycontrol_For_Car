@@ -323,6 +323,15 @@ public final class Setting {
     editor.apply();
   }
 
+  public boolean getDefaultLockOrientation() {
+    return sharedPreferences.getBoolean("defaultLockOrientation", false);
+  }
+
+  public void setDefaultLockOrientation(boolean value) {
+    editor.putBoolean("defaultLockOrientation", value);
+    editor.apply();
+  }
+
   public Setting(SharedPreferences sharedPreferences) {
     this.sharedPreferences = sharedPreferences;
     this.editor = sharedPreferences.edit();

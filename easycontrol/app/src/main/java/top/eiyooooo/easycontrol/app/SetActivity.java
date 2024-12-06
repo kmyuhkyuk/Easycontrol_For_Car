@@ -93,6 +93,8 @@ public class SetActivity extends Activity {
     setActivity.setDisplay.addView(PublicTools.createSwitchCard(this, getString(R.string.set_display_full_to_mini_on_exit), getString(R.string.set_display_full_to_mini_on_exit_detail), AppData.setting.getFullToMiniOnExit(), isChecked -> AppData.setting.setFullToMiniOnExit(isChecked)).getRoot());
     setActivity.setDisplay.addView(PublicTools.createSwitchCard(this, getString(R.string.set_display_full_fill), getString(R.string.set_display_full_fill_detail), AppData.setting.getFillFull(), isChecked -> AppData.setting.setFillFull(isChecked)).getRoot());
     setActivity.setDisplay.addView(PublicTools.createSwitchCard(this, getString(R.string.set_display_default_show_nav_bar), getString(R.string.set_display_default_show_nav_bar_detail), AppData.setting.getDefaultShowNavBar(), isChecked -> AppData.setting.setDefaultShowNavBar(isChecked)).getRoot());
+
+    setActivity.setDisplay.addView(PublicTools.createSwitchCard(this, getString(R.string.set_display_default_lock_orientation), getString(R.string.set_display_default_lock_orientation_detail), AppData.setting.getDefaultLockOrientation(), isChecked -> AppData.setting.setDefaultLockOrientation(isChecked)).getRoot());
     // 其他
     setActivity.setOther.addView(PublicTools.createSpinnerCard(this, getString(R.string.set_audio_channel), getString(R.string.set_audio_channel_detail), String.valueOf(AppData.setting.getAudioChannel()), audioChannelAdapter, str -> AppData.setting.setAudioChannel(Integer.parseInt(str))).getRoot());
     setActivity.setOther.addView(PublicTools.createSwitchCard(this, getString(R.string.set_enable_usb), getString(R.string.set_enable_usb_detail), AppData.setting.getEnableUSB(), isChecked -> AppData.setting.setEnableUSB(isChecked)).getRoot());

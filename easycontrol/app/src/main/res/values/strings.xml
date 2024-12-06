@@ -91,6 +91,9 @@
   <string name="set_license">开源证书</string>
   <string name="set_about_version">版本: </string>
 
+  <string name="set_display_default_lock_orientation">默认屏幕旋转锁定</string>
+  <string name="set_display_default_lock_orientation_detail">连接后默认屏幕旋转锁定</string>
+
   <!-- 查看IP地址页面 -->
   <string name="ip_title">本机地址</string>
   <string name="ip_ipv4">IPv4(点击复制)</string>
