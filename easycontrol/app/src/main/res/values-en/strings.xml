@@ -93,6 +93,8 @@
 
   <string name="set_display_default_lock_orientation">Default Lock Screen Orientation</string>
   <string name="set_display_default_lock_orientation_detail">Lock Screen Orientation after connection</string>
+  <string name="set_display_can_drag_button_more">Can Drag Expand Navigation Button</string>
+  <string name="set_display_can_drag_button_more_detail">Full Screen Mode can be dragged expand navigation bar button</string>
 
   <!-- 查看IP地址页面 -->
   <string name="ip_title">Local Address</string>
