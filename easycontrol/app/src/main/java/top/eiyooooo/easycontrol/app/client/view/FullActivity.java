@@ -289,19 +289,18 @@ public class FullActivity extends Activity implements SensorEventListener {
   public int getDefaultOrientation() {
     String defaultOrientationString = AppData.setting.getDefaultOrientation();
 
-    if (defaultOrientationString.equals("Portrait"))
-      return ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+      switch (defaultOrientationString) {
+          case "Portrait":
+              return ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+          case "Landscape":
+              return ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
+          case "Reverse Landscape":
+              return ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE;
+          case "Reverse Portrait":
+              return ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT;
+      }
 
-    if (defaultOrientationString.equals("Landscape"))
-      return ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
-
-    if (defaultOrientationString.equals("Reverse Landscape"))
-      return ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE;
-
-    if (defaultOrientationString.equals("Reverse Portrait"))
-      return ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT;
-
-    return -1;
+      return -1;
   }
 
   @Override
