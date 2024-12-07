@@ -13,9 +13,11 @@ import android.util.DisplayMetrics;
 import android.util.Pair;
 import android.view.Display;
 import android.view.GestureDetector;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -60,6 +62,8 @@ public class FullActivity extends Activity implements SensorEventListener {
       lockOrientation = AppData.setting.getDefaultLockOrientation();
     }
 
+    setNavBarOrientation();
+
     // 监听
     setButtonListener();
     setMoreListener();
@@ -74,6 +78,19 @@ public class FullActivity extends Activity implements SensorEventListener {
     changeMode(-clientView.mode);
     // 页面自动旋转
     AppData.sensorManager.registerListener(this, AppData.sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+  }
+
+  private void setNavBarOrientation() {
+    if (AppData.setting.getNavBarToRight() && (lastOrientation == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE || lastOrientation == ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE)) {
+      fullActivity.navBar.bringToFront();
+      FrameLayout.LayoutParams buttonMoreParams = (FrameLayout.LayoutParams)fullActivity.buttonMore.getLayoutParams();
+      buttonMoreParams.gravity = Gravity.END;
+      fullActivity.buttonMore.setLayoutParams(buttonMoreParams);
+      FrameLayout.LayoutParams barViewParams = (FrameLayout.LayoutParams)fullActivity.barView.getLayoutParams();
+      barViewParams.gravity = Gravity.END;
+      barViewParams.rightMargin = 100;
+      fullActivity.barView.setLayoutParams(barViewParams);
+    }
   }
 
   public Pair<Integer, Integer> fullMaxSize;
@@ -314,6 +331,7 @@ public class FullActivity extends Activity implements SensorEventListener {
         lastOrientation = defaultOrientation;
         setRequestedOrientation(defaultOrientation);
         nextOrientationData = new OrientationData(isFirstOrientationEvent, lockOrientation, lastOrientation);
+        setNavBarOrientation();
         isFirstOrientationEvent = false;
 
         return;

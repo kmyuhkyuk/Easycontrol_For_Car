@@ -359,6 +359,15 @@ public final class Setting {
     editor.apply();
   }
 
+  public boolean getNavBarToRight() {
+    return sharedPreferences.getBoolean("navBarToRight", false);
+  }
+
+  public void setNavBarToRight(boolean value) {
+    editor.putBoolean("navBarToRight", value);
+    editor.apply();
+  }
+
   public Setting(SharedPreferences sharedPreferences) {
     this.sharedPreferences = sharedPreferences;
     this.editor = sharedPreferences.edit();

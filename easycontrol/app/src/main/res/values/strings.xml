@@ -99,6 +99,8 @@
   <string name="set_display_can_drag_button_more_detail">可以在全屏模式拖动展开导航栏按钮</string>
   <string name="set_display_not_full_to_mini_on_exit">全屏意外退出时不会挂起</string>
   <string name="set_display_not_full_to_mini_on_exit_detail">在全屏模式下意外退出时不会自动最小化</string>
+  <string name="set_display_nav_bar_to_right">导航栏靠右</string>
+  <string name="set_display_nav_bar_to_right_detail">全屏模式下导航栏靠右显示</string>
 
   <!-- 查看IP地址页面 -->
   <string name="ip_title">本机地址</string>

@@ -99,6 +99,8 @@
   <string name="set_display_can_drag_button_more_detail">Can be dragged expand navigation bar button in full screen mode</string>
   <string name="set_display_not_full_to_mini_on_exit">Fullscreen will not auto minimize</string>
   <string name="set_display_not_full_to_mini_on_exit_detail">When fullscreen not manually exits, will not auto minimize it</string>
+  <string name="set_display_nav_bar_to_right">Navigation bar to right</string>
+  <string name="set_display_nav_bar_to_right_detail">Navigation bar to right in full screen mode</string>
 
   <!-- 查看IP地址页面 -->
   <string name="ip_title">Local Address</string>
