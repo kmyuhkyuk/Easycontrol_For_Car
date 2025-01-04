@@ -71,6 +71,15 @@ public class AudioDecode {
     else audioTrack.pause();
   }
 
+  public void enableAudio(boolean enable) {
+    if (enable) {
+      audioTrack.play();
+    }
+    else {
+      audioTrack.stop();
+    }
+  }
+
   private final LinkedBlockingQueue<byte[]> intputDataQueue = new LinkedBlockingQueue<>();
   private final LinkedBlockingQueue<Integer> intputBufferQueue = new LinkedBlockingQueue<>();
 

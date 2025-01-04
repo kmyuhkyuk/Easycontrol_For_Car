@@ -518,4 +518,8 @@ public class Client {
   public void playAudio(boolean play) {
     if (audioDecode != null) audioDecode.playAudio(play);
   }
+
+  public void enableAudio(boolean enable) {
+    if (audioDecode != null) audioDecode.enableAudio(enable);
+  }
 }

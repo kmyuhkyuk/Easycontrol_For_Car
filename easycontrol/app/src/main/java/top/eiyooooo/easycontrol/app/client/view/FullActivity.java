@@ -34,12 +34,15 @@ public class FullActivity extends Activity implements SensorEventListener {
   private ClientView clientView;
   private ActivityFullBinding fullActivity;
 
+  private Client client;
+
+  private boolean isChangeView;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     fullActivity = ActivityFullBinding.inflate(this.getLayoutInflater());
     setContentView(fullActivity.getRoot());
-    Client client;
     try {
       client = Client.allClient.get(getIntent().getIntExtra("index", 0));
       if (client.isClosed()) throw new Exception();
@@ -106,7 +109,15 @@ public class FullActivity extends Activity implements SensorEventListener {
   protected void onPause() {
     AppData.sensorManager.unregisterListener(this);
     if (isChangingConfigurations()) fullActivity.textureViewLayout.removeView(clientView.textureView);
-    else if (!AppData.setting.getNotFullToMiniOnExit() && clientView != null) {
+    else if (AppData.setting.getNotFullToMiniOnExit()) {
+      if (!isChangeView) {
+        client.enableAudio(false);
+      }
+      else {
+        isChangeView = false;
+      }
+    }
+    else if (clientView != null) {
       if (AppData.setting.getFullToMiniOnExit()) clientView.changeToMini(2);
       else clientView.changeToSmall();
     }
@@ -116,6 +127,7 @@ public class FullActivity extends Activity implements SensorEventListener {
   @Override
   protected void onResume() {
     if (AppData.setting.getSetFullScreen()) PublicTools.setFullScreen(this);
+    client.enableAudio(true);
     super.onResume();
   }
 
@@ -158,8 +170,14 @@ public class FullActivity extends Activity implements SensorEventListener {
       barViewTimer();
     });
     if (!AppData.setting.getAlwaysFullMode()) {
-      fullActivity.buttonMini.setOnClickListener(v -> clientView.changeToMini(0));
-      fullActivity.buttonFullExit.setOnClickListener(v -> clientView.changeToSmall());
+      fullActivity.buttonMini.setOnClickListener(v -> {
+        clientView.changeToMini(0);
+        isChangeView = true;
+      });
+      fullActivity.buttonFullExit.setOnClickListener(v -> {
+        clientView.changeToSmall();
+        isChangeView = true;
+      });
     } else {
       fullActivity.buttonMini.setOnClickListener(v -> PublicTools.logToast(getString(R.string.error_mode_not_support)));
       fullActivity.buttonFullExit.setOnClickListener(v -> PublicTools.logToast(getString(R.string.error_mode_not_support)));
