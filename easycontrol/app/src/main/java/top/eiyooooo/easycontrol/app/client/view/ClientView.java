@@ -34,6 +34,7 @@ public class ClientView implements TextureView.SurfaceTextureListener {
   final PublicTools.MyFunctionInt changeMode;
   private final PublicTools.MyFunction onReady;
   public final PublicTools.MyFunction onClose;
+  private final PublicTools.MyFunctionBoolean changeEnableAudio;
   public final TextureView textureView;
   private SurfaceTexture surfaceTexture;
 
@@ -49,7 +50,7 @@ public class ClientView implements TextureView.SurfaceTextureListener {
   boolean lightState;
   public int multiLink = 0;
 
-  public ClientView(Device device, ControlPacket controlPacket, PublicTools.MyFunctionInt changeMode, PublicTools.MyFunction onReady, PublicTools.MyFunction onClose) {
+  public ClientView(Device device, ControlPacket controlPacket, PublicTools.MyFunctionInt changeMode, PublicTools.MyFunction onReady, PublicTools.MyFunction onClose, PublicTools.MyFunctionBoolean changeEnableAudio) {
     lightState = !AppData.setting.getTurnOffScreenIfStart();
     this.deviceOriginal = device;
     this.device = new Device(device.uuid, device.type);
@@ -66,6 +67,7 @@ public class ClientView implements TextureView.SurfaceTextureListener {
     this.changeMode = changeMode;
     this.onReady = onReady;
     this.onClose = onClose;
+    this.changeEnableAudio = changeEnableAudio;
     setTouchListener();
     textureView.setSurfaceTextureListener(this);
     if (smallView != null) smallView.changeMode(mode);
@@ -172,6 +174,7 @@ public class ClientView implements TextureView.SurfaceTextureListener {
   public boolean needResumeToSmall = false;
 
   public synchronized void changeToFull() {
+    changeEnableAudio.run(true);
     hide(false);
     Intent intent = new Intent(AppData.activity, FullActivity.class);
     int i = 0;
@@ -187,6 +190,7 @@ public class ClientView implements TextureView.SurfaceTextureListener {
   public synchronized void changeToSmall() {
     needResumeToSmall = false;
     if (smallView == null) return;
+    changeEnableAudio.run(true);
     hide(false);
     smallView.show();
     viewMode = 2;
@@ -194,6 +198,7 @@ public class ClientView implements TextureView.SurfaceTextureListener {
 
   public synchronized void changeToMini(int mode) {
     if (miniView == null) return;
+    changeEnableAudio.run(false);
     hide(false);
     miniView.show(mode);
     viewMode = 1;
