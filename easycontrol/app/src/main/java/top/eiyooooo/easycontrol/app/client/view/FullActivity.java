@@ -223,6 +223,12 @@ public class FullActivity extends Activity implements SensorEventListener {
         barViewTimer();
       });
     }
+    fullActivity.buttonKeyboard.setOnClickListener(v -> {
+      clientView.showKeyboard();
+    });
+    fullActivity.buttonPaste.setOnClickListener(v -> {
+      clientView.pasteClipboard();
+    });
   }
 
   //设置展开导航栏监听控制
