@@ -60,10 +60,7 @@ public class FullActivity extends Activity implements SensorEventListener {
       lastOrientation = nextOrientationData.lastOrientation;
 
       nextOrientationData = null;
-    }
-    else {
-      lockOrientation = AppData.setting.getDefaultLockOrientation();
-    }
+    } else lockOrientation = AppData.setting.getDefaultLockOrientation();
 
     setNavBarOrientation();
 
@@ -279,8 +276,7 @@ public class FullActivity extends Activity implements SensorEventListener {
 
         return true;
       });
-    }
-    else {
+    } else {
       fullActivity.buttonMore.setOnClickListener(v -> {
         changeBarView();
         barViewTimer();
@@ -370,8 +366,7 @@ public class FullActivity extends Activity implements SensorEventListener {
       }
 
       isFirstOrientationEvent = false;
-    }
-    else {
+    } else {
       if (lockOrientation || Sensor.TYPE_ACCELEROMETER != sensorEvent.sensor.getType()) return;
     }
 
