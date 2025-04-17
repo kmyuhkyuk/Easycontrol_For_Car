@@ -192,6 +192,15 @@
         android:focusable="false"
         android:src="@drawable/content_paste_24px"
         android:tint="@color/onCardBackground" />
+
+    <ImageView
+        android:id="@+id/button_volume_off"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_margin="4dp"
+        android:focusable="false"
+        android:src="@drawable/volume_off_24px"
+        android:tint="@color/onCardBackground" />
   </GridLayout>
 
 </FrameLayout>

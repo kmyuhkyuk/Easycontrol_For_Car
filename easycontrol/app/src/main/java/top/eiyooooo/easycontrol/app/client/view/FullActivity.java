@@ -127,7 +127,7 @@ public class FullActivity extends Activity implements SensorEventListener {
   @Override
   protected void onResume() {
     if (AppData.setting.getSetFullScreen()) PublicTools.setFullScreen(this);
-    client.enableAudio(true);
+    if (clientView.volume) client.enableAudio(true);
     super.onResume();
   }
 
@@ -223,11 +223,19 @@ public class FullActivity extends Activity implements SensorEventListener {
         barViewTimer();
       });
     }
-    fullActivity.buttonKeyboard.setOnClickListener(v -> {
-      clientView.showKeyboard();
-    });
-    fullActivity.buttonPaste.setOnClickListener(v -> {
-      clientView.pasteClipboard();
+    fullActivity.buttonKeyboard.setOnClickListener(v -> clientView.showKeyboard());
+    fullActivity.buttonPaste.setOnClickListener(v -> clientView.pasteClipboard());
+    if (!clientView.volume) fullActivity.buttonVolumeOff.setImageResource(R.drawable.volume_up_24px);
+    fullActivity.buttonVolumeOff.setOnClickListener(v -> {
+      if (clientView.volume) {
+        clientView.changeEnableAudio.run(false);
+        fullActivity.buttonVolumeOff.setImageResource(R.drawable.volume_up_24px);
+        clientView.volume = false;
+      } else {
+        clientView.changeEnableAudio.run(true);
+        fullActivity.buttonVolumeOff.setImageResource(R.drawable.volume_off_24px);
+        clientView.volume = true;
+      }
     });
   }
 

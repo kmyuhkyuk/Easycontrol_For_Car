@@ -35,9 +35,9 @@ public class ClientView implements TextureView.SurfaceTextureListener {
   public int displayId = 0;
   public final ControlPacket controlPacket;
   final PublicTools.MyFunctionInt changeMode;
+  final PublicTools.MyFunctionBoolean changeEnableAudio;
   private final PublicTools.MyFunction onReady;
   public final PublicTools.MyFunction onClose;
-  private final PublicTools.MyFunctionBoolean changeEnableAudio;
   public final TextureView textureView;
   private SurfaceTexture surfaceTexture;
 
@@ -51,6 +51,7 @@ public class ClientView implements TextureView.SurfaceTextureListener {
   private Pair<Integer, Integer> surfaceSize;
   public boolean lastTouchIsInside = true;
   boolean lightState;
+  boolean volume = true;
   public int multiLink = 0;
 
   public ClientView(Device device, ControlPacket controlPacket, PublicTools.MyFunctionInt changeMode, PublicTools.MyFunction onReady, PublicTools.MyFunction onClose, PublicTools.MyFunctionBoolean changeEnableAudio) {
@@ -193,7 +194,7 @@ public class ClientView implements TextureView.SurfaceTextureListener {
   public synchronized void changeToSmall() {
     needResumeToSmall = false;
     if (smallView == null) return;
-    changeEnableAudio.run(true);
+    if (volume) changeEnableAudio.run(true);
     hide(false);
     smallView.show();
     viewMode = 2;

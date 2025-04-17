@@ -444,6 +444,18 @@ public class SmallView extends ViewOutlineProvider {
     smallView.buttonPaste.setOnClickListener(v -> {
       clientView.pasteClipboard();
     });
+    if (!clientView.volume) smallView.buttonVolumeOff.setImageResource(R.drawable.volume_up_24px);
+    smallView.buttonVolumeOff.setOnClickListener(v -> {
+      if (clientView.volume) {
+        clientView.changeEnableAudio.run(false);
+        smallView.buttonVolumeOff.setImageResource(R.drawable.volume_up_24px);
+        clientView.volume = false;
+      } else {
+        clientView.changeEnableAudio.run(true);
+        smallView.buttonVolumeOff.setImageResource(R.drawable.volume_off_24px);
+        clientView.volume = true;
+      }
+    });
   }
 
   // 导航栏隐藏
