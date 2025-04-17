@@ -505,9 +505,7 @@ public class SmallView extends ViewOutlineProvider {
   private void setReSizeListener() {
     int minSize = PublicTools.dp2px(150f);
     smallView.reSize.setOnTouchListener((v, event) -> {
-      if (smallView.navBar.getVisibility() == View.GONE) {
-        return false;
-      }
+      if (smallView.navBar.getVisibility() == View.GONE) return false;
 
       if (!InitPos) return true;
       if (event.getActionMasked() == MotionEvent.ACTION_MOVE) {
