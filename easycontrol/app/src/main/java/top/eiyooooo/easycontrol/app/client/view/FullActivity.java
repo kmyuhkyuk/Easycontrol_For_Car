@@ -107,12 +107,8 @@ public class FullActivity extends Activity implements SensorEventListener {
     AppData.sensorManager.unregisterListener(this);
     if (isChangingConfigurations()) fullActivity.textureViewLayout.removeView(clientView.textureView);
     else if (!client.isClosed() && AppData.setting.getNotFullToMiniOnExit()) {
-      if (!isChangeView) {
-        client.enableAudio(false);
-      }
-      else {
-        isChangeView = false;
-      }
+      if (!isChangeView) client.enableAudio(false);
+      else isChangeView = false;
     }
     else if (clientView != null) {
       if (AppData.setting.getFullToMiniOnExit()) clientView.changeToMini(2);
