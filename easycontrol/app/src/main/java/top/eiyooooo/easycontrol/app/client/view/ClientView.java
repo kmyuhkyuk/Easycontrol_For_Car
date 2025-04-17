@@ -178,7 +178,7 @@ public class ClientView implements TextureView.SurfaceTextureListener {
   public boolean needResumeToSmall = false;
 
   public synchronized void changeToFull() {
-    changeEnableAudio.run(true);
+    if (volume) changeEnableAudio.run(true);
     hide(false);
     Intent intent = new Intent(AppData.activity, FullActivity.class);
     int i = 0;
