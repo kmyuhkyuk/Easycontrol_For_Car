@@ -362,9 +362,7 @@ public class ClientView implements TextureView.SurfaceTextureListener {
 
     if (clipData == null) return;
 
-    if (clipData.getItemCount() > 0) {
-      controlPacket.sendClipboardEvent(clipBoard.getPrimaryClip().getItemAt(0).getText().toString());
-    }
+    if (clipData.getItemCount() > 0) controlPacket.sendClipboardEvent(clipBoard.getPrimaryClip().getItemAt(0).getText().toString());
   }
 
   @Override
