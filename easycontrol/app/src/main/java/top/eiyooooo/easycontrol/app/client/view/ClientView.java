@@ -360,9 +360,10 @@ public class ClientView implements TextureView.SurfaceTextureListener {
     ClipboardManager clipBoard = AppData.clipBoard;
     ClipData clipData = clipBoard.getPrimaryClip();
 
-    if (clipData == null) return;
-
-    if (clipData.getItemCount() > 0) controlPacket.sendClipboardEvent(clipBoard.getPrimaryClip().getItemAt(0).getText().toString());
+    if (clipData != null && clipData.getItemCount() > 0) {
+      CharSequence text = clipData.getItemAt(0).getText();
+      if (text != null) controlPacket.sendClipboardEvent(text.toString());
+    }
   }
 
   @Override
